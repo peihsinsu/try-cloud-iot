@@ -17,6 +17,7 @@
 
 // [START iot_mqtt_include]
 const fs = require('fs');
+const os = require('os');
 const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
 // [END iot_mqtt_include]
@@ -116,7 +117,8 @@ function createJwt (projectId, privateKeyFile, algorithm) {
 // messageCount.
 // [START iot_mqtt_publish]
 function publishAsync (messageCount, numMessages) {
-  const payload = `${argv.registry_id}/${argv.device_id}-payload-${messageCount}`;
+  const payload = //`${argv.registry_id}/${argv.device_id}-payload-${messageCount}`;
+    os.loadavg().join(',');
   // Publish "payload" to the MQTT topic. qos=1 means at least once delivery.
   // Cloud IoT Core also supports qos=0 for at most once delivery.
   console.log('Publishing message:', payload);
@@ -155,8 +157,6 @@ const connectionArgs = {
   protocol: 'mqtts'
 };
 
-console.log('connectionArgs:', connectionArgs);
-
 // Create a client, and connect to the Google MQTT bridge.
 const client = mqtt.connect(connectionArgs);
 
@@ -167,23 +167,27 @@ const client = mqtt.connect(connectionArgs);
 const mqttTopic = `/devices/${argv.device_id}/${argv.message_type}`;
 
 client.on('connect', () => {
-  console.log('connect', arguments);
+  //console.log('connect', arguments);
   // After connecting, publish 'num_messages' messagse asynchronously, at a rate
   // of 1 per second for telemetry events and 1 every 2 seconds for states.
+  console.log('IoT connecting... ');
   publishAsync(1, argv.num_messages);
 });
 
 client.on('close', () => {
   // console.log('close', arguments);
+  console.log('IoT connection close... ');
 });
 
 client.on('error', (e) => {
-  console.log('error', e);
+  //console.log('error', e);
+  console.log('Someting error....');
   process.exit(1);
 });
 
 client.on('packetsend', () => {
   // console.log('packetsend', arguments);
+  console.log('Packet sent....');
 });
 
 // Once all of the messages have been published, the connection to Google Cloud
