@@ -1,0 +1,14 @@
+{
+  "name": "sample-pubsub",
+  "version": "0.0.1",  
+  "dependencies": {
+    "@google-cloud/bigquery": "0.9.6"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "1.4.17",
+    "ava": "0.21.0",
+    "proxyquire": "1.8.0",
+    "sinon": "3.2.0"
+  }
+}
+
