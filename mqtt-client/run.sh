@@ -6,4 +6,4 @@ node cloudiot_mqtt_example_nodejs.js \
   --private_key_file=./rsa_private.pem \
   --algorithm=RS256 \
   --cloud_region=asia-east1 \
-  --num_messages=5
+  --num_messages=50
