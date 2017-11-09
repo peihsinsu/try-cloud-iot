@@ -1,0 +1,7 @@
+{
+  "commands": {
+    "id1": {
+      "type": REBOOT
+    }
+  }
+}

@@ -121,8 +121,13 @@ function publishAsync (messageCount, numMessages) {
     os.loadavg().join(',');
   // Publish "payload" to the MQTT topic. qos=1 means at least once delivery.
   // Cloud IoT Core also supports qos=0 for at most once delivery.
-  console.log('Publishing message:', payload);
-  client.publish(mqttTopic, payload, { qos: 1 });
+  
+  //client.publish(mqttTopic, payload, { qos: 1 });
+  client.subscribe(mqttTopic, {qos:1}, function(err, data){
+	if(err) console.log("ERROR:", err);
+
+	console.log('>>>>', data);
+  });
 
   const delayMs = argv.message_type === 'events' ? 1000 : 2000;
   if (messageCount < numMessages) {
